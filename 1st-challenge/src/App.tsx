@@ -9,7 +9,7 @@ const octokit = new Octokit({
 
 type Repository = Pick<
   Octokit.ReposListPublicResponseItem,
-  'id' | 'full_name' | 'owner' | 'html_url' | 'description'
+  'id' | 'full_name' | 'html_url' | 'description'
 >
 
 const App: React.FC = () => {
@@ -27,10 +27,9 @@ const App: React.FC = () => {
     ;(async () => {
       const { data: publicRepos } = await octokit.repos.listPublic()
       setRepos(
-        publicRepos.map(({ id, full_name, owner, html_url, description }) => ({
+        publicRepos.map(({ id, full_name, html_url, description }) => ({
           id,
           full_name,
-          owner,
           html_url,
           description
         }))
@@ -60,15 +59,12 @@ const App: React.FC = () => {
 
       setRepos(repos =>
         repos.concat(
-          publicRepos.map(
-            ({ id, full_name, owner, html_url, description }) => ({
-              id,
-              full_name,
-              owner,
-              html_url,
-              description
-            })
-          )
+          publicRepos.map(({ id, full_name, html_url, description }) => ({
+            id,
+            full_name,
+            html_url,
+            description
+          }))
         )
       )
     }
