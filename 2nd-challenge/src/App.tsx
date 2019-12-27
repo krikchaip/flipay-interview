@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import parser from 'lib/tree-parser'
+
 const App: React.FC = () => {
   const [code, setCode] = useState('')
   return (
