@@ -95,7 +95,15 @@ const App: React.FC = () => {
         <tbody>
           {repos.slice(display.from, display.to).map(rep => (
             <tr key={rep.id}>
-              <td>{rep.full_name}</td>
+              <td>
+                <a
+                  href={rep.html_url}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {rep.full_name}
+                </a>
+              </td>
               <td>{rep.description}</td>
             </tr>
           ))}

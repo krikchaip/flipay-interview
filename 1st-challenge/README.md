@@ -7,10 +7,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Checklist
 
-- [ ] Use the [GitHub API](https://developer.github.com/v3/repos/#list-all-public-repositories) to list all public repositories.
+- [x] Use the [GitHub API](https://developer.github.com/v3/repos/#list-all-public-repositories) to list all public repositories.
 
-- [ ] Show 10 repositories in a table with all the information that you judge necessary.
+- [x] Show 10 repositories in a table with all the information that you judge necessary.
 
-- [ ] Add pagination to allow the user to navigate the repositories, 10 per page.
+- [x] Add pagination to allow the user to navigate the repositories, 10 per page.
 
-- [ ] No need to be beautiful, focus on using the API.
+- [x] No need to be beautiful, focus on using the API.
