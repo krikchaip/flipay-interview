@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const App: React.FC = () => {
+  const [code, setCode] = useState('')
   return (
     <div className="App">
-      <textarea className="App__Textfield"></textarea>
-      <div className="App__Textfield"></div>
+      <textarea
+        className="App__Textfield"
+        spellCheck={false}
+        value={code}
+        onChange={e => setCode(e.target.value)}
+      ></textarea>
+      <div className="App__Textfield">
+        <pre style={{ font: 'inherit' }}>{code}</pre>
+      </div>
     </div>
   )
 }
