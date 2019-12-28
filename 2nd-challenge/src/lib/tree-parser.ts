@@ -12,11 +12,33 @@ export type TreeByLevel = {
   [level: string]: Node[]
 }
 
-const fromString: (str: string) => TreeByLevel = (str: string) => {
-  return JSON.parse(str)
+// validator function
+function isTreeByLevel(tree: any): tree is TreeByLevel {
+  try {
+    return Object.entries<Node[]>(tree).every(([level, nodes]) =>
+      nodes.every(n => Number(level) === n.level)
+    )
+  } catch {
+    return false
+  }
 }
 
-const toNodeList = () => {}
+function fromString(str: string): TreeByLevel | null {
+  try {
+    const treeByLevel = JSON.parse(str)
+
+    // validation
+    if (typeof treeByLevel === 'boolean') return null
+    if (typeof treeByLevel === 'number') return null
+    if (!isTreeByLevel(treeByLevel)) return null
+
+    return treeByLevel as TreeByLevel
+  } catch {
+    return null
+  }
+}
+
+function toNodeList() {}
 
 export default {
   fromString,
