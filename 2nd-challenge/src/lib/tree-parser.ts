@@ -39,7 +39,32 @@ function fromString(str: string): TreeByLevel | null {
 }
 
 function toNodeList(byLevel: TreeByLevel): Tree {
-  return []
+  const asEntriesSorted = Object.entries(byLevel).sort(
+    ([levelA], [levelB]) => Number(levelA) - Number(levelB)
+  )
+
+  console.log(JSON.stringify(asEntriesSorted, null, 2))
+
+  let result: Tree = []
+  let idIdxMap: { [id: string]: number } = {}
+
+  asEntriesSorted.forEach(([level, nodes]) => {
+    const lv = Number(level)
+
+    if (lv === 0) {
+      result = nodes
+      idIdxMap = Object.fromEntries(nodes.map((n, idx) => [n.id, idx]))
+      return
+    }
+
+    nodes.forEach(n => {
+      result[idIdxMap[n.parent_id!]].children.push(n)
+    })
+  })
+
+  console.log(JSON.stringify(result, null, 2))
+
+  return result
 }
 
 export default {

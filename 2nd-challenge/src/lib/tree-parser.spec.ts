@@ -122,42 +122,19 @@ describe('fromString', () => {
 })
 
 fdescribe('toNodeList', () => {
-  it('node.children should be filled with its own children', () => {
-    const data: TreeByLevel = {
-      '0': [
-        {
-          id: 1,
-          title: 'Root',
-          level: 0,
-          parent_id: null,
-          children: []
-        }
-      ],
-      '1': [
-        {
-          id: 10,
-          title: 'Child1',
-          level: 1,
-          parent_id: 1,
-          children: []
-        },
-        {
-          id: 11,
-          title: 'Child2',
-          level: 1,
-          parent_id: 1,
-          children: []
-        }
-      ]
-    }
-
-    const filledWithOwnChildren: Tree = [
-      {
-        id: 1,
-        title: 'Root',
-        level: 0,
-        parent_id: null,
-        children: [
+  describe('node.children should be filled with its own children', () => {
+    it('1-level nested', () => {
+      const data: TreeByLevel = {
+        '0': [
+          {
+            id: 1,
+            title: 'Root',
+            level: 0,
+            parent_id: null,
+            children: []
+          }
+        ],
+        '1': [
           {
             id: 10,
             title: 'Child1',
@@ -174,8 +151,33 @@ fdescribe('toNodeList', () => {
           }
         ]
       }
-    ]
 
-    expect(parser.toNodeList(data)).toEqual<Tree>(filledWithOwnChildren)
+      const filledWithOwnChildren: Tree = [
+        {
+          id: 1,
+          title: 'Root',
+          level: 0,
+          parent_id: null,
+          children: [
+            {
+              id: 10,
+              title: 'Child1',
+              level: 1,
+              parent_id: 1,
+              children: []
+            },
+            {
+              id: 11,
+              title: 'Child2',
+              level: 1,
+              parent_id: 1,
+              children: []
+            }
+          ]
+        }
+      ]
+
+      expect(parser.toNodeList(data)).toEqual<Tree>(filledWithOwnChildren)
+    })
   })
 })
