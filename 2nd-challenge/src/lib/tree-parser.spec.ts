@@ -1,4 +1,4 @@
-import parser, { TreeByLevel } from './tree-parser'
+import parser, { TreeByLevel, Tree } from './tree-parser'
 
 describe('fromString', () => {
   it('return TreeByLevel with correct input', () => {
@@ -14,7 +14,7 @@ describe('fromString', () => {
       ]
     }`
 
-    const tree = {
+    const tree: TreeByLevel = {
       '0': [
         {
           id: 10,
@@ -26,7 +26,7 @@ describe('fromString', () => {
       ]
     }
 
-    expect(parser.fromString(correctInput)).toEqual<TreeByLevel>(tree)
+    expect(parser.fromString(correctInput)).toEqual(tree)
   })
 
   describe('return null when', () => {
@@ -121,4 +121,61 @@ describe('fromString', () => {
   })
 })
 
-describe('toNodeList', () => {})
+fdescribe('toNodeList', () => {
+  it('node.children should be filled with its own children', () => {
+    const data: TreeByLevel = {
+      '0': [
+        {
+          id: 1,
+          title: 'Root',
+          level: 0,
+          parent_id: null,
+          children: []
+        }
+      ],
+      '1': [
+        {
+          id: 10,
+          title: 'Child1',
+          level: 1,
+          parent_id: 1,
+          children: []
+        },
+        {
+          id: 11,
+          title: 'Child2',
+          level: 1,
+          parent_id: 1,
+          children: []
+        }
+      ]
+    }
+
+    const filledWithOwnChildren: Tree = [
+      {
+        id: 1,
+        title: 'Root',
+        level: 0,
+        parent_id: null,
+        children: [
+          {
+            id: 10,
+            title: 'Child1',
+            level: 1,
+            parent_id: 1,
+            children: []
+          },
+          {
+            id: 11,
+            title: 'Child2',
+            level: 1,
+            parent_id: 1,
+            children: []
+          }
+        ]
+      }
+    ]
+
+    expect(parser.toNodeList(data)).toEqual<Tree>(filledWithOwnChildren)
+  })
+})
