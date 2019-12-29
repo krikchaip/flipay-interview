@@ -38,7 +38,9 @@ function fromString(str: string): TreeByLevel | null {
   }
 }
 
-function toNodeList() {}
+function toNodeList(byLevel: TreeByLevel): Tree {
+  return []
+}
 
 export default {
   fromString,

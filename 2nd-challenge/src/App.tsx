@@ -1,16 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import parser from 'lib/tree-parser'
 
 const App: React.FC = () => {
+  const [raw, setRaw] = useState('')
   const [code, setCode] = useState('')
+
+  useEffect(() => {
+    if (!raw) return setCode('')
+
+    const treeByLevel = parser.fromString(raw)
+
+    if (treeByLevel) {
+      const tree = parser.toNodeList(treeByLevel)
+      return setCode(JSON.stringify(tree, null, 2))
+    }
+
+    return setCode('Sorry, Wrong format!!')
+  }, [raw])
+
   return (
     <div className="App">
       <textarea
         className="App__Textfield"
         spellCheck={false}
-        value={code}
-        onChange={e => setCode(e.target.value)}
+        value={raw}
+        onChange={e => setRaw(e.target.value)}
       ></textarea>
       <div className="App__Textfield">
         <pre style={{ font: 'inherit' }}>{code}</pre>
