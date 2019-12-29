@@ -121,7 +121,7 @@ describe('fromString', () => {
   })
 })
 
-fdescribe('toNodeList', () => {
+describe('toNodeList', () => {
   describe('node.children should be filled with its own children', () => {
     it('1-level nested', () => {
       const data: TreeByLevel = {
@@ -178,6 +178,123 @@ fdescribe('toNodeList', () => {
       ]
 
       expect(parser.toNodeList(data)).toEqual<Tree>(filledWithOwnChildren)
+    })
+
+    it('2-level nested', () => {
+      const data: TreeByLevel = {
+        '0': [
+          {
+            id: 10,
+            title: 'House',
+            level: 0,
+            children: [],
+            parent_id: null
+          }
+        ],
+        '1': [
+          {
+            id: 12,
+            title: 'Red Roof',
+            level: 1,
+            children: [],
+            parent_id: 10
+          },
+          {
+            id: 18,
+            title: 'Blue Roof',
+            level: 1,
+            children: [],
+            parent_id: 10
+          },
+          {
+            id: 13,
+            title: 'Wall',
+            level: 1,
+            children: [],
+            parent_id: 10
+          }
+        ],
+        '2': [
+          {
+            id: 17,
+            title: 'Blue Window',
+            level: 2,
+            children: [],
+            parent_id: 12
+          },
+          {
+            id: 16,
+            title: 'Door',
+            level: 2,
+            children: [],
+            parent_id: 13
+          },
+          {
+            id: 15,
+            title: 'Red Window',
+            level: 2,
+            children: [],
+            parent_id: 12
+          }
+        ]
+      }
+
+      const expected = [
+        {
+          id: 10,
+          title: 'House',
+          level: 0,
+          children: [
+            {
+              id: 12,
+              title: 'Red Roof',
+              level: 1,
+              children: [
+                {
+                  id: 17,
+                  title: 'Blue Window',
+                  level: 2,
+                  children: [],
+                  parent_id: 12
+                },
+                {
+                  id: 15,
+                  title: 'Red Window',
+                  level: 2,
+                  children: [],
+                  parent_id: 12
+                }
+              ],
+              parent_id: 10
+            },
+            {
+              id: 18,
+              title: 'Blue Roof',
+              level: 1,
+              children: [],
+              parent_id: 10
+            },
+            {
+              id: 13,
+              title: 'Wall',
+              level: 1,
+              children: [
+                {
+                  id: 16,
+                  title: 'Door',
+                  level: 2,
+                  children: [],
+                  parent_id: 13
+                }
+              ],
+              parent_id: 10
+            }
+          ],
+          parent_id: null
+        }
+      ]
+
+      expect(parser.toNodeList(data)).toEqual(expected)
     })
   })
 })
