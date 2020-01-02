@@ -87,7 +87,7 @@ describe('fromString', () => {
       expect(parser.fromString(validParent)).toBeNull()
     })
 
-    xit('some nodes missing parent_id field', () => {
+    xit('some nodes are missing parent_id field', () => {
       const missingParent = `{
         "1": [
           {
