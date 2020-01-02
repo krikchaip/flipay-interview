@@ -417,6 +417,75 @@ describe('toNodeList', () => {
       expect(parser.toNodeList(data)).toEqual(expected)
     })
 
-    xit('multiple roots', () => {})
+    it('multiple roots', () => {
+      const data: TreeByLevel = {
+        '0': [
+          {
+            id: 0,
+            title: 'Root0',
+            level: 0,
+            children: [],
+            parent_id: null
+          },
+          {
+            id: 1,
+            title: 'Root1',
+            level: 0,
+            children: [],
+            parent_id: null
+          }
+        ],
+        '1': [
+          {
+            id: 10,
+            title: 'Level1-0',
+            level: 1,
+            children: [],
+            parent_id: 0
+          },
+          {
+            id: 11,
+            title: 'Level1-1',
+            level: 0,
+            children: [],
+            parent_id: 0
+          }
+        ]
+      }
+
+      const expected: Tree = [
+        {
+          id: 0,
+          title: 'Root0',
+          level: 0,
+          children: [
+            {
+              id: 10,
+              title: 'Level1-0',
+              level: 1,
+              children: [],
+              parent_id: 0
+            },
+            {
+              id: 11,
+              title: 'Level1-1',
+              level: 0,
+              children: [],
+              parent_id: 0
+            }
+          ],
+          parent_id: null
+        },
+        {
+          id: 1,
+          title: 'Root1',
+          level: 0,
+          children: [],
+          parent_id: null
+        }
+      ]
+
+      expect(parser.toNodeList(data)).toEqual(expected)
+    })
   })
 })
