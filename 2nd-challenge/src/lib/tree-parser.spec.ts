@@ -296,5 +296,127 @@ describe('toNodeList', () => {
 
       expect(parser.toNodeList(data)).toEqual(expected)
     })
+
+    it('n-level nested', () => {
+      const data: TreeByLevel = {
+        '0': [
+          {
+            id: 0,
+            title: 'Root',
+            level: 0,
+            children: [],
+            parent_id: null
+          }
+        ],
+        '1': [
+          {
+            id: 10,
+            title: 'Level1-0',
+            level: 1,
+            children: [],
+            parent_id: 0
+          },
+          {
+            id: 11,
+            title: 'Level1-1',
+            level: 1,
+            children: [],
+            parent_id: 0
+          }
+        ],
+        '2': [
+          {
+            id: 20,
+            title: 'Level2-0',
+            level: 2,
+            children: [],
+            parent_id: 10
+          },
+          {
+            id: 21,
+            title: 'Level2-1',
+            level: 2,
+            children: [],
+            parent_id: 10
+          },
+          {
+            id: 22,
+            title: 'Level2-2',
+            level: 2,
+            children: [],
+            parent_id: 11
+          }
+        ],
+        '3': [
+          {
+            id: 30,
+            title: 'Level3-0',
+            level: 3,
+            children: [],
+            parent_id: 22
+          }
+        ]
+      }
+
+      const expected: Tree = [
+        {
+          id: 0,
+          title: 'Root',
+          level: 0,
+          children: [
+            {
+              id: 10,
+              title: 'Level1-0',
+              level: 1,
+              children: [
+                {
+                  id: 20,
+                  title: 'Level2-0',
+                  level: 2,
+                  children: [],
+                  parent_id: 10
+                },
+                {
+                  id: 21,
+                  title: 'Level2-1',
+                  level: 2,
+                  children: [],
+                  parent_id: 10
+                }
+              ],
+              parent_id: 0
+            },
+            {
+              id: 11,
+              title: 'Level1-1',
+              level: 1,
+              children: [
+                {
+                  id: 22,
+                  title: 'Level2-2',
+                  level: 2,
+                  children: [
+                    {
+                      id: 30,
+                      title: 'Level3-0',
+                      level: 3,
+                      children: [],
+                      parent_id: 22
+                    }
+                  ],
+                  parent_id: 11
+                }
+              ],
+              parent_id: 0
+            }
+          ],
+          parent_id: null
+        }
+      ]
+
+      expect(parser.toNodeList(data)).toEqual(expected)
+    })
+
+    xit('multiple roots', () => {})
   })
 })
