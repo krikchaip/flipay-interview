@@ -15,8 +15,13 @@ export type TreeByLevel = {
 // validator function
 function isTreeByLevel(tree: any): tree is TreeByLevel {
   try {
-    return Object.entries<Node[]>(tree).every(([level, nodes]) =>
-      nodes.every(n => Number(level) === n.level)
+    // ref: https://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
+    return (
+      Object.keys(tree).length !== 0 &&
+      tree.constructor === Object &&
+      Object.entries<Node[]>(tree).every(([level, nodes]) =>
+        nodes.every(n => Number(level) === n.level)
+      )
     )
   } catch {
     return false
