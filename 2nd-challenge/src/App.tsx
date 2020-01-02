@@ -22,13 +22,16 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <textarea
+        data-testid="input"
         className="App__Textfield"
         spellCheck={false}
         value={raw}
         onChange={e => setRaw(e.target.value)}
       ></textarea>
       <div className="App__Textfield">
-        <pre style={{ font: 'inherit' }}>{code}</pre>
+        <pre data-testid="output" style={{ font: 'inherit' }}>
+          {code}
+        </pre>
       </div>
     </div>
   )
